@@ -1,0 +1,164 @@
+body {
+	background-color: #111;
+	font-family: sans-serif;
+	font-size: 14pt;
+	max-width: 60em;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+}
+
+header {
+	display: inline;
+}
+
+#skip_content { display: none; }
+
+.site_title {
+	background-color: #111;
+	padding-top: 0.5em;
+	padding-bottom: 0.7em;
+	margin: 0;
+}
+
+.site_title a {
+	text-decoration: none;
+	color: white;
+}
+
+.site_title a:hover {
+	text-decoration: underline;
+}
+
+header nav {
+	background-color: #111;
+	font-size: 80%;
+	width: 13%;
+	padding: 1em;
+	float: right;
+}
+
+header nav h1 {
+	text-transform: uppercase;
+	font-size: 0.8em;
+	padding-left: 0.4em;
+	color: white;
+}
+
+header nav ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+header nav a {
+	text-transform: lowercase;
+	text-decoration: none;
+	display: block;
+	padding: 0.3em;
+	color: white;
+}
+
+header nav li:hover {
+	background-color: #3b7;
+}
+
+header nav li:hover a {
+	color: black;
+}
+
+main {
+	background-color: white;
+	border-radius: 4px; 
+	color: black;
+	padding-left: 1em;
+	padding-right: 1em;
+	float: left;
+	width: 80%;
+}
+
+main a {
+	text-decoration: none;
+	color: #33b;
+}
+
+main hr {
+	border: 0.1em solid black;
+}
+
+main table {
+	border-collapse: collapse;
+	font-size: 70%;
+	background-color: #f9f9f9;
+}
+
+main th, main td {
+	border: 1px solid #aaa;
+	padding: 0.3em;
+	padding-right: 1em;
+}
+
+main th {
+	background-color: #f2f2f2;
+	text-align: center;
+	font-weight: bold;
+}
+
+main pre, main code {
+	background-color: #111;
+	font-size: 80%;
+	color: white;
+	padding: 0.3em;
+}
+
+article.preview h2 {
+	margin-bottom: 0.1em;
+}
+
+article.preview .byline {
+	font-size: 70%;
+	font-style: italic;
+	margin-bottom: 0.2em;
+}
+
+footer {
+	background-color: #111;
+	color: white;
+	clear: both;
+}
+
+footer ul {
+	padding-left: 0;
+	list-style-type: none;
+}
+
+footer li {
+	height: 0.9em;
+}
+
+footer small {
+	font-size: 0.6em;
+}
+
+@media (max-width: 1024px) {
+	body { width: auto; } 
+
+	#skip_content {
+		display: block;
+		color: white;
+		font-size: 80%;
+	}
+
+	header nav {
+		padding-top: 0;
+		padding-left: 0;
+		padding-right: 0;
+		float: left;
+		width: 100%;
+	}
+
+	header nav li { display: inline-block; }
+
+	main { width: 95%; }
+}
+

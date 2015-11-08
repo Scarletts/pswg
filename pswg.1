@@ -1,0 +1,132 @@
+.Dd $Mdocdate: November 7 2015 $
+.Dt PSWG 1
+.Os
+.Sh NAME
+.Nm pswg
+.Nd pony static website generator
+.Sh SYNOPSIS
+.Nm pswg
+.Op Fl afhnu
+.Op Fl b Ar base_url
+.Op Fl p Ar parser
+.Op Fl t Ar feed_title
+.Sh DESCRIPTION
+.Nm
+reads pages from the directory
+.Pa src ,
+and outputs them to the directory
+.Pa build ,
+concatenated between
+.Pa header.html
+and
+.Pa footer.html
+from the current directory.
+The following options are available:
+.Bl -tag -width Ds
+.It Fl a
+Generate
+.Pa archive.html ,
+an index of pages including extra information such as the date they were
+modified.
+.It Fl b
+Specifies a base URL to use when generating links, for example,
+.Lk http://example.org:81
+.Pp
+Generally, this option can be safely ignored when the HTML is only being
+generated for local viewing.
+.It Fl f
+Generate
+.Pa atom.xml ,
+a feed which syndicates pages. This also requires the
+.Fl t
+flag to be given.
+.It Fl h
+Like
+.Fl n ,
+generate a news page, but make it the root index.
+.It Fl n
+Generate
+.Pa news.html ,
+a page which contains links to the 10 most recently added pages, with
+a small amount of metadata and the first paragraph from each page included.
+.It Fl p
+Specifies a parser that takes a file as the first argument and prints HTML to
+.Li stdout .
+This allows e.g. markdown to be used in pages.
+.Pp
+The default is
+.Xr cat 1 ,
+which simply prints the page without processing (the file is expected to
+contain normal HTML).
+.It Fl t
+Specifies a title for the generated feed. Used with
+.Fl f .
+.It Fl u
+Hides usernames from generated output. You still need to make sure
+.Li ${owner}
+isn't present in any templates.
+.El
+.Sh TEMPLATE VARIABLES
+The following variables can be used in the
+.Pa header.html
+and
+.Pa footer.html
+templates.
+.Bl -tag -width Ds
+.It Li ${year}
+Replaced with the current year.
+.It Li ${created}
+Replaced with the date/time the page was created in standard ISO format.
+(YYYY-MM-DDTHH:MM:SSZ)
+.It Li ${created_readable}
+Replaced with the date/time the page was created in "readable" ISO format.
+(YYYY-MM-DD HH:MM UTC)
+.It Li ${modified}
+Replaced with the date/time the page was created in standard ISO format.
+(YYYY-MM-DDTHH:MM:SSZ)
+.It Li ${modified_readable}
+Replaced with the date/time the page was modified in "readable" ISO format.
+(YYYY-MM-DD HH:MM UTC)
+.It Li ${owner}
+Replaced with the name of the user who owns the file containing the page.
+.It Li ${title}
+Replaced with the title of the page.
+.Pp
+For "regular" pages, the title is the page's filename with extension removed
+and
+.Li - and
+.Li _
+replaced with spaces.
+.Pp
+For pages named
+.Pa index
+(with any extension), the title will be "Home" if the parent directory is
+.Pa src ,
+otherwise the title will be the name of the parent directory with
+.Li -
+and
+.Li _
+replaced with spaces.
+.El
+.Sh SEE ALSO
+.Lk https://github.com/Scarletts/pswg
+.Sh CAVEATS
+Since the parser is spawned for each page that gets processed, a long
+startup time has a considerable cost, especially with larger websites.
+.Pp
+For this reason, I recommend against using
+.Fl p
+with
+.Xr markdown_py 1 .
+.Pp
+Try using another implementation, the official one from
+.Lk http://daringfireball.net/
+seems reasonably fast, as does
+.Xr multimarkdown 1 .
+.Pp
+Watch out for
+.Li .date
+files in the
+.Pa src
+directory. They're created to keep track of page creation dates and shouldn't
+be modified.
