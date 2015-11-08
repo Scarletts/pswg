@@ -21,6 +21,6 @@ gcc or clang, and a mdoc reader.
 Installation
 ------------
 $ make
-# make install
+\# make install
 $ make clean
 
