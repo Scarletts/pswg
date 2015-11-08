@@ -20,7 +20,7 @@ gcc or clang, and a mdoc reader.
 
 Installation
 ------------
-$ make
-\# make install
-$ make clean
+    $ make
+    # make install
+    $ make clean
 
