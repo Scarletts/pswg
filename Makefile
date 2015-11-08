@@ -8,7 +8,7 @@ OBJS=		pswg.o xalloc.o util.o
 
 CFLAGS?=	-O2 -g
 
-CFLAGS+=	-std=c99 -Wall
+CFLAGS+=	-std=c99 -Wall -D_POSIX_C_SOURCE=200809L
 
 all: ${OBJS}
 	${CC} -o ${PROG} ${OBJS}
