@@ -54,6 +54,7 @@ xreallocarray(void *optr, size_t x, size_t y)
 	if (x != 0 && y > SIZE_MAX / x) {
 		fprintf(stderr,
 		    "xreallocarray: multiplication will overflow\n");
+		exit(1);
 	}
 	return xrealloc(optr, x * y);
 }
