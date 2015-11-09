@@ -7,7 +7,7 @@ useful enough to not be too annoying.
 
 "Fancy" features include the ability to generate a news archive
 and Atom feed. For more information, you might want to read the
-man page (don't forget to read it!), or check out the example site.
+man page (don't forget to read it!)
 
 It probably still needs some testing, particularly on systems
 that use special (not UTC+0) timezones.
