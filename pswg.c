@@ -275,27 +275,29 @@ traverse(const char *path, const struct stat *s, int flag)
 
 		sed_args[0] = xstrdup("sed");
 
-		xasprintf(&sed_args[1], "-e s|${year}|%d|g",
+		xasprintf(&sed_args[1], "-e s|${base_url}|%s|g",
+		    x.base_url);
+		xasprintf(&sed_args[2], "-e s|${year}|%d|g",
 		    now.tm_year + 1900);
-		xasprintf(&sed_args[2], "-e s|${created}|%s|g",
+		xasprintf(&sed_args[3], "-e s|${created}|%s|g",
 		    page->created_iso);
-		xasprintf(&sed_args[3], "-e s|${created_readable}|%s|g",
+		xasprintf(&sed_args[4], "-e s|${created_readable}|%s|g",
 		    page->created_readable);
-		xasprintf(&sed_args[4], "-e s|${modified}|%s|g",
+		xasprintf(&sed_args[5], "-e s|${modified}|%s|g",
 		    page->modified_iso);
-		xasprintf(&sed_args[5], "-e s|${modified_readable}|%s|g",
+		xasprintf(&sed_args[6], "-e s|${modified_readable}|%s|g",
 		    page->modified_readable);
-		xasprintf(&sed_args[6], "-e s|${owner}|%s|g", page->user);
-		xasprintf(&sed_args[7], "-e s|${title}|%s|g", page->title);
+		xasprintf(&sed_args[7], "-e s|${owner}|%s|g", page->user);
+		xasprintf(&sed_args[8], "-e s|${title}|%s|g", page->title);
 
-		sed_args[8] = xstrdup("header.html");
+		sed_args[9] = xstrdup("header.html");
 
 		if ((header = read_pipe(sed_args, &header_len)) == NULL) {
 			goto error;
 		}
 
-		free(sed_args[8]);
-		sed_args[8] = xstrdup("footer.html");
+		free(sed_args[9]);
+		sed_args[9] = xstrdup("footer.html");
 		if ((footer = read_pipe(sed_args, &footer_len)) == NULL) {
 			goto error;
 		}
@@ -357,24 +359,25 @@ create_archive(void)
 
 	sed_args[0] = xstrdup("sed");
 
-	xasprintf(&sed_args[1], "-e s|${year}|%d|g", now.tm_year + 1900);
+	xasprintf(&sed_args[1], "-e s|${base_url}|%s|g", x.base_url);
+	xasprintf(&sed_args[2], "-e s|${year}|%d|g", now.tm_year + 1900);
 	strftime(timestr, sizeof(timestr), "%FT%H:%M:%SZ", &now);
-	xasprintf(&sed_args[2], "-e s|${created}|%s|g", timestr);
-	xasprintf(&sed_args[3], "-e s|${modified}|%s|g", timestr);
+	xasprintf(&sed_args[3], "-e s|${created}|%s|g", timestr);
+	xasprintf(&sed_args[4], "-e s|${modified}|%s|g", timestr);
 	strftime(timestr, sizeof(timestr), "%F %H:%M UTC", &now);
-	xasprintf(&sed_args[4], "-e s|${created_readable}|%s|g", timestr);
-	xasprintf(&sed_args[5], "-e s|${modified_readable}|%s|g", timestr);
-	xasprintf(&sed_args[6], "-e s|${owner}|%s|g", getlogin());
-	xasprintf(&sed_args[7], "-e s|${title}|%s|g", "Archive");
+	xasprintf(&sed_args[5], "-e s|${created_readable}|%s|g", timestr);
+	xasprintf(&sed_args[6], "-e s|${modified_readable}|%s|g", timestr);
+	xasprintf(&sed_args[7], "-e s|${owner}|%s|g", getlogin());
+	xasprintf(&sed_args[8], "-e s|${title}|%s|g", "Archive");
 
-	sed_args[8] = xstrdup("header.html");
+	sed_args[9] = xstrdup("header.html");
 
 	if ((header = read_pipe(sed_args, &header_len)) == NULL) {
 		goto error;
 	}
 
-	free(sed_args[8]);
-	sed_args[8] = xstrdup("footer.html");
+	free(sed_args[9]);
+	sed_args[9] = xstrdup("footer.html");
 	if ((footer = read_pipe(sed_args, &footer_len)) == NULL) {
 		goto error;
 	}
@@ -482,24 +485,25 @@ create_news(const char *filename)
 
 	sed_args[0] = xstrdup("sed");
 
-	xasprintf(&sed_args[1], "-e s|${year}|%d|g", now.tm_year + 1900);
+	xasprintf(&sed_args[1], "-e s|${base_url}|%s|g", x.base_url);
+	xasprintf(&sed_args[2], "-e s|${year}|%d|g", now.tm_year + 1900);
 	strftime(timestr, sizeof(timestr), "%FT%H:%M:%SZ", &now);
-	xasprintf(&sed_args[2], "-e s|${created}|%s|g", timestr);
-	xasprintf(&sed_args[3], "-e s|${modified}|%s|g", timestr);
+	xasprintf(&sed_args[3], "-e s|${created}|%s|g", timestr);
+	xasprintf(&sed_args[4], "-e s|${modified}|%s|g", timestr);
 	strftime(timestr, sizeof(timestr), "%F %H:%M UTC", &now);
-	xasprintf(&sed_args[4], "-e s|${created_readable}|%s|g", timestr);
-	xasprintf(&sed_args[5], "-e s|${modified_readable}|%s|g", timestr);
-	xasprintf(&sed_args[6], "-e s|${owner}|%s|g", getlogin());
-	xasprintf(&sed_args[7], "-e s|${title}|%s|g", "News");
+	xasprintf(&sed_args[5], "-e s|${created_readable}|%s|g", timestr);
+	xasprintf(&sed_args[6], "-e s|${modified_readable}|%s|g", timestr);
+	xasprintf(&sed_args[7], "-e s|${owner}|%s|g", getlogin());
+	xasprintf(&sed_args[8], "-e s|${title}|%s|g", "News");
 
-	sed_args[8] = xstrdup("header.html");
+	sed_args[9] = xstrdup("header.html");
 
 	if ((header = read_pipe(sed_args, &header_len)) == NULL) {
 		goto error;
 	}
 
-	free(sed_args[8]);
-	sed_args[8] = xstrdup("footer.html");
+	free(sed_args[9]);
+	sed_args[9] = xstrdup("footer.html");
 	if ((footer = read_pipe(sed_args, &footer_len)) == NULL) {
 		goto error;
 	}
