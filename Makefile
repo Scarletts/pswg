@@ -13,7 +13,7 @@ CFLAGS+=	-std=c99 -Wall -D_POSIX_C_SOURCE=200809L
 all: ${OBJS}
 	${CC} -o ${PROG} ${OBJS}
 
-install:
+install: all
 	install -d ${DESTDIR}${PREFIX}/bin
 	install -d ${DESTDIR}${PREFIX}/man/man1
 	install -m 755 ${PROG} ${DESTDIR}${PREFIX}/bin
